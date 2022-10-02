@@ -11,6 +11,19 @@ import java.util.Map;
 
 public class HttpRequests {
 
+    public static HttpResponse<String> sendPostRequest(String uri, String body) throws IOException, InterruptedException {
+
+        HttpClient client = HttpClient.newHttpClient();
+        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body))
+                .header("Content-Type","application/json")
+                .header("User-Agent", "Java client")
+                .build();
+        return client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+    }
+
     public static HttpResponse<String> sendPostRequest(String uri, Map<String,String> bodyParams) throws IOException, InterruptedException {
         var objectMapper = new ObjectMapper();
         String requestBody = objectMapper
