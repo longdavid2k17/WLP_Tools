@@ -1,5 +1,8 @@
 package pl.com.kantoch;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,5 +17,10 @@ public class JsonLoader
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         object = (String)bufferedReader.lines().collect(Collectors.joining("\n"));
         return (String) object;
+    }
+
+    public String convertIntoJsonFile(Object object) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
     }
 }
