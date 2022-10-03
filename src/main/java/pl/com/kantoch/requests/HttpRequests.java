@@ -65,4 +65,16 @@ public class HttpRequests {
         return client.send(request,
                 HttpResponse.BodyHandlers.ofString());
     }
+
+    public static HttpResponse<String> sendGetRequest(String uri) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .GET()
+                .header("Content-Type","application/json")
+                .header("User-Agent", "Java client")
+                .build();
+        return client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+    }
 }
