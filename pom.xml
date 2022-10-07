@@ -15,6 +15,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jackson.core.version>2.13.4</jackson.core.version>
     <junit.version>4.13.2</junit.version>
+    <maven-tool.version>3.8.5</maven-tool.version>
   </properties>
 
   <dependencies>
@@ -28,6 +29,12 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.core.version}</version>
+    </dependency>
+    <!-- TOOLS DEPENDENCIES -->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>${maven-tool.version}</version>
     </dependency>
 
   </dependencies>
