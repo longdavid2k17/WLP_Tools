@@ -1,13 +1,15 @@
 package pl.com.kantoch.files;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,6 +54,45 @@ public class FileOperationServiceImplementation implements FileOperationService 
         removeFile(tempTargetFileName);
         //remove temp file
         return content;
+    }
+
+    @Override
+    public CSVParser readCSVFile(File file, CSVFormat csvFormat) throws IOException {
+        Reader reader = Files.newBufferedReader(file.toPath());
+        return new CSVParser(reader, csvFormat);
+    }
+
+    @Override
+    public CSVParser readCSVFile(File file) throws IOException {
+        Reader reader = Files.newBufferedReader(file.toPath());
+        return new CSVParser(reader, CSVFormat.DEFAULT);
+    }
+
+    @Override
+    public void writeCSVFile(File file, List<List<String>> value, String... headers) throws IOException {
+        FileWriter out = new FileWriter(file);
+        if(headers.length==0){
+            try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT)) {
+                value.forEach(e -> {
+                    try {
+                        printer.printRecord(e);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+        } else {
+            try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT
+                    .withHeader(headers))) {
+                value.forEach(e -> {
+                    try {
+                        printer.printRecord(e);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+        }
     }
 
     public Set<String> listFiles(String directory) throws IOException {

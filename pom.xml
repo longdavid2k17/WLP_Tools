@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>pl.com.kantoch</groupId>
   <artifactId>WLP_Tools</artifactId>
-  <version>0.0.2-FINAL</version>
+  <version>0.0.3</version>
   <packaging>jar</packaging>
   <name>WLP_Tools</name>
 
@@ -16,6 +16,7 @@
     <jackson.core.version>2.13.4</jackson.core.version>
     <junit.version>4.13.2</junit.version>
     <maven-tool.version>3.8.5</maven-tool.version>
+    <commons-csv.version>1.9.0</commons-csv.version>
   </properties>
 
   <dependencies>
@@ -29,6 +30,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>${commons-csv.version}</version>
     </dependency>
     <!-- TOOLS DEPENDENCIES -->
     <dependency>
